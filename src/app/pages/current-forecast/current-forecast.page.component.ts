@@ -13,10 +13,6 @@ export class CurrentForecastPageComponent {
   ) { }
 
   public handleEnteredLocation(enteredLocation: LocationForecast) {
-    console.log(enteredLocation)
-
     this.forecastService.saveLocationForecast(enteredLocation)
-
-
   }
 }

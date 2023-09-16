@@ -3,6 +3,8 @@ import { WatherchannelService } from './watherchannel.service';
 import { ForecastInfo } from '../interfaces/forecast-info.interface';
 import { BehaviorSubject, Observable, catchError, forkJoin, map, of, take } from 'rxjs';
 import { HttpErrorResponse } from '@angular/common/http';
+import { FiveDaysWeatherInfo } from '../interfaces/five-days-weather-info.interface';
+import { DateConversion } from '../shared/utils/date-conversion';
 
 @Injectable({
   providedIn: 'root',
@@ -10,6 +12,8 @@ import { HttpErrorResponse } from '@angular/common/http';
 export class ForecastService {
 
   public forecastInfos$ = new BehaviorSubject<ForecastInfo[]>([])
+  public fiveDaysForecastInfos$ = new BehaviorSubject<ForecastInfo[]>([])
+
 
   private readonly FORECAST_LOCATIONS = 'forecast_locations'
 
@@ -69,7 +73,30 @@ export class ForecastService {
         this.forecastInfos$.next(data)
         console.log('forecastData', this.forecastInfos$.value)
       })
+    } else {
+      this.forecastInfos$.next([])
     }
+  }
+
+  public loadFiveForecastInfo(zipCode: number, countryCode: string): void {
+    this.watherchannelService
+      .getFiveDayForecast(zipCode, countryCode, 'metric')
+      .subscribe((data: FiveDaysWeatherInfo) => {
+        const forecastInfo: ForecastInfo[] = data.list.map((info) => {
+          const forecastInfo: ForecastInfo = {
+            zipCode,
+            countryCode,
+            place: data.city.name,
+            date: DateConversion.formatDate(info.dt, 'short'),
+            maxTemp: info.temp.max,
+            minTemp: info.temp.min,
+            conditions: info.weather[0].main,
+            image: info.weather[0].main ? info.weather[0].main.toLowerCase() + '.png' : '',
+          }
+          return forecastInfo
+        })
+        this.fiveDaysForecastInfos$.next(forecastInfo)
+      })
   }
 
   public getForecastInfo(forecastLocation: LocationForecast): Observable<ForecastInfo> {
@@ -91,7 +118,9 @@ export class ForecastService {
       }),
       catchError((err: HttpErrorResponse) => {
         alert(err.error.message)
-        this.removeLocationForecast(forecastLocation as ForecastInfo)
+        if (err.error.message !== 'Internal error') {
+          this.removeLocationForecast(forecastLocation as ForecastInfo)
+        }
         throw err
       })
     )

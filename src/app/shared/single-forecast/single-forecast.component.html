@@ -9,9 +9,7 @@
         {{ forecatsInfo.minTemp }}
       </p>
       <p>
-        <a [routerLink]="['/forecast', forecatsInfo?.zipCode]"
-          >Show 5-day forecast for {{ forecatsInfo.place }}</a
-        >
+        <a (click)="goTo(forecatsInfo)">Show 5-day forecast for {{ forecatsInfo.place }}</a>
       </p>
     </div>
     <div>

@@ -10,7 +10,7 @@ import { FiveDaysWeatherInfo } from '../interfaces/five-days-weather-info.interf
 })
 export class WatherchannelService {
   private readonly API_KEY = '5a4b2d457ecbef9eb2a71e480b947604'
-  private readonly WATHER_CHANNEL_BASEURL = 'https://api.openweathermap.org/data/2.5/weather'
+  private readonly WATHER_CHANNEL_BASEURL = 'https://api.openweathermap.org/data/2.5'
 
   constructor(private httpClient: HttpClient) { }
 
@@ -25,7 +25,7 @@ export class WatherchannelService {
       units: units ? units : 'metric'
     }
     return this.httpClient
-      .get(this.WATHER_CHANNEL_BASEURL, { params })
+      .get(`${this.WATHER_CHANNEL_BASEURL}/weather`, { params })
       .pipe(map((watherData) => watherData as CurrentWeatherInfo))
   }
 
@@ -42,7 +42,7 @@ export class WatherchannelService {
     }
 
     return this.httpClient
-      .get(this.WATHER_CHANNEL_BASEURL, { params })
+      .get(`${this.WATHER_CHANNEL_BASEURL}/forecast/daily`, { params })
       .pipe(map((watherData) => watherData as FiveDaysWeatherInfo))
   }
 }

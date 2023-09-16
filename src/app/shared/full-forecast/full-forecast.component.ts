@@ -1,9 +1,7 @@
 import { Component, Input, OnInit } from '@angular/core'
-import { FiveDaysWeatherInfo } from 'src/app/interfaces/five-days-weather-info.interface'
 import { ForecastInfo } from 'src/app/interfaces/forecast-info.interface'
-import { WatherchannelService } from 'src/app/services/watherchannel.service'
-import { DateConversion } from '../utils/date-conversion'
-import { Router } from '@angular/router'
+import { ActivatedRoute, Router } from '@angular/router'
+import { ForecastService } from 'src/app/services/forecast.service'
 
 @Component({
   selector: 'app-full-forecast',
@@ -14,37 +12,18 @@ export class FullForecastComponent implements OnInit {
   @Input() zipCode: number = 0
   @Input() countryCode: string = 'MX'
 
-  public forecastInfo: ForecastInfo[] = []
-
-  public placeName: string = ''
-
-  constructor(private weatherService: WatherchannelService, private router: Router) { }
+  constructor(public forecastService: ForecastService, private router: Router, private activeRoute: ActivatedRoute) { }
 
   ngOnInit(): void {
-    this.fetchForecastInfo()
+    this.activeRoute.queryParams.subscribe((params) => {
+      this.forecastService.loadFiveForecastInfo(params['zipCode'], params['countryCode'])
+    })
   }
 
-  fetchForecastInfo(): void {
-    this.weatherService
-      .getFiveDayForecast(this.zipCode, this.countryCode, 'metric')
-      .subscribe((data: FiveDaysWeatherInfo) => {
-        this.placeName = data.city.name
-        this.forecastInfo = data.list.map((info) => {
-          const forecastInfo: ForecastInfo = {
-            zipCode: this.zipCode,
-            countryCode: this.countryCode,
-            date: DateConversion.formatDate(info.dt, 'short'),
-            maxTemp: info.temp.max,
-            minTemp: info.temp.min,
-            conditions: info.weather[0].main,
-            image: info.weather[0].main ? info.weather[0].main.toLowerCase() + '.png' : '',
-          }
-          return forecastInfo
-        })
-      })
-  }
+
 
   public returnHomePage(): void {
-    this.router.navigateByUrl('/home')
+    this.forecastService.fiveDaysForecastInfos$.next([])
+    this.router.navigateByUrl('/')
   }
 }

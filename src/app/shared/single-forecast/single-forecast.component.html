@@ -1,0 +1,25 @@
+<ng-container *ngIf="forecastService.forecastInfos$ | async as forecatsInfos">
+  <div class="well flex" *ngFor="let forecatsInfo of forecatsInfos">
+    <div>
+      <h3>{{ forecatsInfo.place }}</h3>
+      <h4>Current conditions: {{ forecatsInfo.conditions }}</h4>
+      <h4>Temperatures today:</h4>
+      <p>
+        Current {{ forecatsInfo.currentTemp }} - Max {{ forecatsInfo.maxTemp }} - Min
+        {{ forecatsInfo.minTemp }}
+      </p>
+      <p>
+        <a [routerLink]="['/forecast', forecatsInfo?.zipCode]"
+          >Show 5-day forecast for {{ forecatsInfo.place }}</a
+        >
+      </p>
+    </div>
+    <div>
+      <span class="close" (click)="removeForecastLocation(forecatsInfo)">×</span>
+      <img
+        *ngIf="forecatsInfo?.image"
+        [src]="'https://www.angulartraining.com/images/weather/' + forecatsInfo.image"
+      />
+    </div>
+  </div>
+</ng-container>

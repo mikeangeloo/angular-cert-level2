@@ -1,0 +1,22 @@
+<h4>Template for 5-day forecast page:</h4>
+<div class="container-fluid" *ngIf="forecastInfo">
+  <div class="panel panel-default">
+    <div class="panel-heading">
+      <h3 class="panel-title">5-day forecast for {{ placeName }}</h3>
+    </div>
+    <ul class="list-group" *ngFor="let forecast of forecastInfo">
+      <!---->
+      <li class="list-group-item">
+        {{ forecast.date }}: {{ forecast.conditions }} - Min: {{ forecast.minTemp }} - Max:
+        {{ forecast.maxTemp }}
+
+        <img
+          *ngIf="forecast.image"
+          class="icon"
+          src="https://www.angulartraining.com/images/weather/{{ forecast.image }}"
+        />
+      </li>
+    </ul>
+  </div>
+  <button class="btn btn-success" tabindex="0" id="mainPageBtn">&lt; Back to main page</button>
+</div>

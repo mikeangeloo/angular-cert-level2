@@ -1,5 +1,6 @@
 import { Component, EventEmitter, OnInit, Output } from '@angular/core';
-import { CountryCode, ForecastService, LocationForecast } from 'src/app/services/forecast.service';
+import { CountryCode, ForecastService, LocationForecast } from '../../services/forecast.service';
+
 
 @Component({
   selector: 'app-location-zipcode',

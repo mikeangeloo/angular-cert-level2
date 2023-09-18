@@ -1,8 +1,8 @@
 import { Component, Input, OnInit } from '@angular/core'
 import { Router } from '@angular/router'
 import { Observable, of } from 'rxjs'
-import { ForecastInfo } from 'src/app/interfaces/forecast-info.interface'
-import { ForecastService } from 'src/app/services/forecast.service'
+import { ForecastInfo } from '../../interfaces/forecast-info.interface'
+import { ForecastService } from '../../services/forecast.service'
 
 @Component({
   selector: 'app-single-forecast',

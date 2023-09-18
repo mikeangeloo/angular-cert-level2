@@ -1,6 +1,7 @@
 import { Component, Input, OnInit } from '@angular/core'
 import { ActivatedRoute, Router } from '@angular/router'
-import { ForecastService } from 'src/app/services/forecast.service'
+import { ForecastService } from '../../services/forecast.service'
+
 
 @Component({
   selector: 'app-full-forecast',

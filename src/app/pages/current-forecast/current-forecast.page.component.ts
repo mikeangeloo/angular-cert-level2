@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
-import { ForecastService, LocationForecast } from 'src/app/services/forecast.service';
+import { ForecastService, LocationForecast } from '../../services/forecast.service';
+
 
 @Component({
   selector: 'app-current-forecast.page',

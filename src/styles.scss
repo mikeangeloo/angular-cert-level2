@@ -20,3 +20,16 @@ body {
   right: 20px;
   top: -2px;
 }
+
+.single-forecast {
+  position: relative;
+  margin-top: 1rem;
+
+  .close-button {
+    position: absolute;
+    right: 0;
+    font-size: 2rem;
+    top: -1.5rem;
+    color: gray;
+  }
+}

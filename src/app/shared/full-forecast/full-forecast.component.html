@@ -1,6 +1,6 @@
 <ng-container *ngIf="forecastService.fiveDaysForecastInfos$ | async as forecastInfos">
-  <h4>Template for 5-day forecast page:</h4>
   <div class="container-fluid" *ngIf="forecastInfos">
+    <h4>Template for 5-day forecast page:</h4>
     <div class="panel panel-default">
       <div class="panel-heading">
         <h3 class="panel-title">
@@ -22,6 +22,7 @@
         </li>
       </ul>
     </div>
+    <br />
     <button class="btn btn-success" tabindex="0" id="mainPageBtn" (click)="returnHomePage()">
       &lt; Back to main page
     </button>

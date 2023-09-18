@@ -1,39 +1,47 @@
 <div class="well">
   <h2>Enter a zipcode:</h2>
-  <div class="row">
-    <div class="col-xs-6">
-      <div class="form-group" [ngClass]="{ 'has-error': errorFeedback }">
-        <input
-          class="form-control"
-          [(ngModel)]="selectedZipCode"
-          placeholder="Zipcode"
-          type="number"
-          id="addLocation"
-          aria-describedby="inputErrorStatus"
-        />
+  <form>
+    <div class="row">
+      <div class="col-6">
+        <div class="form-group">
+          <input
+            class="form-control"
+            [(ngModel)]="selectedZipCode"
+            placeholder="Zipcode"
+            type="number"
+            id="addLocation"
+            aria-describedby="inputErrorStatus"
+            [ngClass]="{ 'is-invalid': errorFeedback }"
+            [ngModelOptions]="{ standalone: true }"
+          />
+        </div>
       </div>
-    </div>
 
-    <div class="col-xs-6">
-      <div class="form-group" [ngClass]="{ 'has-error': errorFeedback }">
-        <select
-          class="form-control"
-          [(ngModel)]="selectedContryCode"
-          aria-describedby="inputErrorStatus"
-        >
-          <option [value]="''">Select Country Code</option>
-          <option *ngFor="let countryCode of countryCodes" [value]="countryCode.code">
-            {{ countryCode.name }}
-          </option>
-        </select>
+      <div class="col-6">
+        <div class="form-group">
+          <select
+            class="form-control"
+            [(ngModel)]="selectedContryCode"
+            aria-describedby="inputErrorStatus"
+            [ngModelOptions]="{ standalone: true }"
+            [ngClass]="{ 'is-invalid': errorFeedback }"
+          >
+            <option [value]="''">Select Country Code</option>
+            <option *ngFor="let countryCode of countryCodes" [value]="countryCode.code">
+              {{ countryCode.name }}
+            </option>
+          </select>
+        </div>
+      </div>
+      <div class="col-12 form-group">
+        <ng-container *ngIf="errorFeedback">
+          <span id="inputErrorStatus" class="invalid-feedback" style="display: block">{{
+            errorFeedback
+          }}</span>
+        </ng-container>
       </div>
     </div>
-    <div class="col-xs-12 form-group" [ngClass]="{ 'has-error has-feedback': errorFeedback }">
-      <ng-container *ngIf="errorFeedback">
-        <span id="inputErrorStatus" class="help-block">{{ errorFeedback }}</span>
-      </ng-container>
-    </div>
-  </div>
+  </form>
 
   <br />
   <button class="btn btn-primary" id="addLocationBtn" (click)="emitEnteredZipCode()">

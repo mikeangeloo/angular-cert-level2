@@ -1,5 +1,5 @@
 <ng-container *ngIf="forecastService.forecastInfos$ | async as forecatsInfos">
-  <div class="well flex" *ngFor="let forecatsInfo of forecatsInfos">
+  <div class="well flex single-forecast" *ngFor="let forecatsInfo of forecatsInfos">
     <div>
       <h3>{{ forecatsInfo.place }}</h3>
       <h4>Current conditions: {{ forecatsInfo.conditions }}</h4>
@@ -9,11 +9,19 @@
         {{ forecatsInfo.minTemp }}
       </p>
       <p>
-        <a (click)="goTo(forecatsInfo)">Show 5-day forecast for {{ forecatsInfo.place }}</a>
+        <a class="card-link" (click)="goTo(forecatsInfo)"
+          >Show 5-day forecast for {{ forecatsInfo.place }}</a
+        >
       </p>
     </div>
     <div>
-      <span class="close" (click)="removeForecastLocation(forecatsInfo)">×</span>
+      <button
+        class="btn btn-sm close-button"
+        aria-label="Close"
+        (click)="removeForecastLocation(forecatsInfo)"
+      >
+        <span aria-hidden="true">&times;</span>
+      </button>
       <img
         *ngIf="forecatsInfo?.image"
         [src]="'https://www.angulartraining.com/images/weather/' + forecatsInfo.image"

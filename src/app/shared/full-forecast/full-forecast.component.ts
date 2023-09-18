@@ -1,5 +1,4 @@
 import { Component, Input, OnInit } from '@angular/core'
-import { ForecastInfo } from 'src/app/interfaces/forecast-info.interface'
 import { ActivatedRoute, Router } from '@angular/router'
 import { ForecastService } from 'src/app/services/forecast.service'
 
@@ -12,15 +11,17 @@ export class FullForecastComponent implements OnInit {
   @Input() zipCode: number = 0
   @Input() countryCode: string = 'MX'
 
-  constructor(public forecastService: ForecastService, private router: Router, private activeRoute: ActivatedRoute) { }
+  constructor(
+    public forecastService: ForecastService,
+    private router: Router,
+    private activeRoute: ActivatedRoute
+  ) { }
 
   ngOnInit(): void {
     this.activeRoute.queryParams.subscribe((params) => {
       this.forecastService.loadFiveForecastInfo(params['zipCode'], params['countryCode'])
     })
   }
-
-
 
   public returnHomePage(): void {
     this.forecastService.fiveDaysForecastInfos$.next([])

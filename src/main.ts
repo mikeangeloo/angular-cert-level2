@@ -3,6 +3,8 @@ import { platformBrowserDynamic } from '@angular/platform-browser-dynamic'
 import { AppModule } from './app/app.module'
 import { NgModuleRef } from '@angular/core'
 
+import './polyfills';
+
 type windowExtended = Window &
   typeof globalThis & {
     ngRef: NgModuleRef<AppModule>

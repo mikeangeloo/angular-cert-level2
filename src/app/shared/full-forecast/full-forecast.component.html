@@ -15,9 +15,9 @@
           {{ forecast.maxTemp }}
 
           <img
-            *ngIf="forecast.image"
+            *ngIf="forecast.conditions"
             class="icon"
-            src="https://www.angulartraining.com/images/weather/{{ forecast.image }}"
+            [src]="forecast.conditions | forecastImage : forecast.conditionApiIcon"
           />
         </li>
       </ul>

@@ -10,8 +10,6 @@ import { ForecastService } from '../../services/forecast.service'
   styleUrls: ['./single-forecast.component.scss'],
 })
 export class SingleForecastComponent implements OnInit {
-  @Input() forecatsInfo$: Observable<ForecastInfo> = of()
-
   constructor(
     public forecastService: ForecastService,
     private router: Router
@@ -21,12 +19,11 @@ export class SingleForecastComponent implements OnInit {
     this.forecastService.loadSavedLocalForecastInfo()
   }
 
-
   public removeForecastLocation(forecastLocation: ForecastInfo): void {
     this.forecastService.removeLocationForecast(forecastLocation)
   }
 
-  public goTo(forecatsInfo: ForecastInfo) {
+  public goTo(forecatsInfo: ForecastInfo): void {
     this.router.navigate(['/forecast'], {
       queryParams: {
         zipCode: forecatsInfo.zipCode,
@@ -34,5 +31,4 @@ export class SingleForecastComponent implements OnInit {
       }
     })
   }
-
 }

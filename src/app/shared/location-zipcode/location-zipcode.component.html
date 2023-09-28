@@ -1,18 +1,19 @@
 <div class="well">
   <h2>Enter a zipcode:</h2>
-  <form>
+  <form [formGroup]="locationZipcodeFormGroup">
     <div class="row">
       <div class="col-6">
         <div class="form-group">
           <input
             class="form-control"
-            [(ngModel)]="selectedZipCode"
             placeholder="Zipcode"
             type="number"
             id="addLocation"
             aria-describedby="inputErrorStatus"
-            [ngClass]="{ 'is-invalid': errorFeedback }"
-            [ngModelOptions]="{ standalone: true }"
+            [ngClass]="{
+              'is-invalid': errorFeedback
+            }"
+            formControlName="zipCode"
           />
         </div>
       </div>
@@ -21,10 +22,11 @@
         <div class="form-group">
           <select
             class="form-control"
-            [(ngModel)]="selectedContryCode"
             aria-describedby="inputErrorStatus"
-            [ngModelOptions]="{ standalone: true }"
-            [ngClass]="{ 'is-invalid': errorFeedback }"
+            [ngClass]="{
+              'is-invalid': errorFeedback
+            }"
+            formControlName="location"
           >
             <option [value]="''">Select Country Code</option>
             <option *ngFor="let countryCode of countryCodes" [value]="countryCode.code">

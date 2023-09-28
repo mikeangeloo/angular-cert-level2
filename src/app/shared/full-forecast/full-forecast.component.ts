@@ -9,9 +9,6 @@ import { ForecastService } from '../../services/forecast.service'
   styleUrls: ['./full-forecast.component.scss'],
 })
 export class FullForecastComponent implements OnInit {
-  @Input() zipCode: number = 0
-  @Input() countryCode: string = 'MX'
-
   constructor(
     public forecastService: ForecastService,
     private router: Router,

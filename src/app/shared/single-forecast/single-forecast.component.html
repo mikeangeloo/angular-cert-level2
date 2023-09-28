@@ -23,8 +23,8 @@
         <span aria-hidden="true">&times;</span>
       </button>
       <img
-        *ngIf="forecatsInfo?.image"
-        [src]="'https://www.angulartraining.com/images/weather/' + forecatsInfo.image"
+        *ngIf="forecatsInfo.conditions"
+        [src]="forecatsInfo.conditions | forecastImage : forecatsInfo.conditionApiIcon"
       />
     </div>
   </div>

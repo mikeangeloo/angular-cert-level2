@@ -93,7 +93,7 @@ export class ForecastService {
             maxTemp: info.temp.max,
             minTemp: info.temp.min,
             conditions: info.weather[0].main,
-            image: info.weather[0].main ? info.weather[0].main.toLowerCase() + '.png' : '',
+            conditionApiIcon: info.weather[0].icon
           }
           return forecastInfo
         })
@@ -111,12 +111,10 @@ export class ForecastService {
             countryCode: forecastLocation.countryCode,
             place: currentWeatherInfo.name,
             conditions: currentWeatherInfo.weather[0].main,
+            conditionApiIcon: currentWeatherInfo.weather[0].icon,
             currentTemp: currentWeatherInfo.main.temp,
             maxTemp: currentWeatherInfo.main.temp_max,
             minTemp: currentWeatherInfo.main.temp_min,
-            image: currentWeatherInfo.weather[0].main
-              ? currentWeatherInfo.weather[0].main.toLowerCase() + '.png'
-              : '',
             date: '',
           }
 
